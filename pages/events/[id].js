@@ -9,6 +9,7 @@ export default function EventPage({ evt }) {
 
     const deleteEvent = () => {console.log("deleteEvent")}
 
+    console.log(evt)
     return (
         <Layout>
             <div className={styles.event}> 
@@ -23,15 +24,15 @@ export default function EventPage({ evt }) {
                     </a>
                 </div>
             </div>
-            <h1>{evt.name}</h1>
+            <h1>{evt.data.attributes.name}</h1>
             {evt.image && (
                 <div className={styles.image}>
                     <Image src={evt.image} width={960} height={600}></Image>
                 </div>
             )}
-            <p>{evt.description}</p>
+            <p>{evt.data.attributes.description}</p>
             <h5>
-                <span>by {evt.performers} at {evt.venue} @ {evt.time}</span>
+                <span>by {evt.data.attributes.performers} at {evt.data.attributes.venue} venue @ {evt.data.attributes.time}</span>
             </h5>
         </Layout>
     )
@@ -43,6 +44,6 @@ export async function getServerSideProps({ query: {id} })
     const events = await res.json();
 
     return{
-        props: { evt: events[0] }
+        props: { evt: events }
     }
 }

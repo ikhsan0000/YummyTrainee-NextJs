@@ -4,12 +4,14 @@ import Link from 'next/link'
 import { API_URL } from '@/config/index'
 
 export default function Home({events}) {
+
+  console.log(events.data)
   return (
 
     <Layout>
       <h1>Upcoming</h1>
-      {events.length === 0 && <h3>it's lonely here, there's currently no events</h3>}
-      {events && events.map( (e) => (
+      {events.data.length === 0 && <h3>it's lonely here, there's currently no events</h3>}
+      {events && events.data.map( (e) => (
         <EventItem key={e.id} evt={e}/>
       ))}
       {events && (
@@ -26,7 +28,7 @@ export default function Home({events}) {
 
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/events`)
+  const res = await fetch(`${API_URL}/api/events?pagination[start]=0&pagination[limit]=3`)
   const events = await res.json()
   return {
     props: { events }

@@ -6,13 +6,13 @@ export default function EventItem({evt}) {
     return (
         <div className={styles.event}>
             <div className={styles.img}>
-                <Image src={evt.image ? evt.image : '/images/event-default.png'} width={170} height={100}/>
+                <Image src={evt.attributes.image ? evt.attributes.image : '/images/event-default.png'} width={170} height={100}/>
             </div>
                 <div className={styles.info}>
                     <Link href={`/events/${evt.id}`}>
-                        <h3 className={styles.title}>{evt.name}</h3>
+                        <h3 className={styles.title}>{evt.attributes.name}</h3>
                     </Link>
-                    <span>{evt.name} at {evt.time}</span>
+                    <span>{evt.attributes.name} at {evt.attributes.time}</span>
                 </div>
         </div> 
     )

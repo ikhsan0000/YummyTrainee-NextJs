@@ -8,7 +8,7 @@ export default function EventList({events}) {
     <Layout>
       <h1>Dj Events</h1>
       {events.length === 0 && <h3>it's lonely here, there's currently no events</h3>}
-      {events && events.map( (e) => (
+      {events && events.data.map( (e) => (
         <EventItem key={e.id} evt={e}/>
       ))}
     </Layout>
