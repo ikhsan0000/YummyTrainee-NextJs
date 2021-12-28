@@ -12,6 +12,8 @@ export default function EventPage({ evt }) {
     console.log(evt)
     return (
         <Layout>
+            <Link href='/events'>Go back</Link>
+
             <div className={styles.event}> 
                 <div className={styles.controls}>
                     <Link href={`/events/edit/${evt.id}`}>
@@ -25,14 +27,14 @@ export default function EventPage({ evt }) {
                 </div>
             </div>
             <h1>{evt.data.attributes.name}</h1>
-            {evt.image && (
+            {evt.data.attributes.image && (
                 <div className={styles.image}>
-                    <Image src={evt.image} width={960} height={600}></Image>
+                    <Image src={evt.data.attributes.image.data.attributes.formats.medium.url} width={960} height={600}></Image>
                 </div>
             )}
             <p>{evt.data.attributes.description}</p>
             <h5>
-                <span>by {evt.data.attributes.performers} at {evt.data.attributes.venue} venue @ {evt.data.attributes.time}</span>
+                <span>by {evt.data.attributes.performers} at {evt.data.attributes.venue} venue | {new Date(evt.data.attributes.date).toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})} @ {evt.data.attributes.time}</span>
             </h5>
         </Layout>
     )
@@ -40,7 +42,7 @@ export default function EventPage({ evt }) {
 
 export async function getServerSideProps({ query: {id} })
 {
-    const res = await fetch(`${API_URL}/api/events/${id}`);
+    const res = await fetch(`${API_URL}/api/events/${id}?populate=*`);
     const events = await res.json();
 
     return{
