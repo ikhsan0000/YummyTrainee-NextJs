@@ -5,7 +5,6 @@ import { API_URL } from '@/config/index'
 
 export default function Home({events}) {
 
-  console.log(events.data)
   return (
 
     <Layout>
