@@ -13,6 +13,7 @@ import Modal from "@/components/Modal";
 import ImageUpload from "@/components/ImageUpload";
 
 export default function EditAdd({ evt }) {
+    console.log(evt)
     const router = useRouter()
     const [values, setValues] = useState({
             name: evt.data.attributes.name,
@@ -186,11 +187,12 @@ export default function EditAdd({ evt }) {
     )
 }
 
-export async function getServerSideProps({ params: {id}})
+export async function getServerSideProps({ params: {id}, req})
 {
     const res = await fetch(`${API_URL}/api/events/${id}?populate=*`, {
         method: 'GET',
     })
+    console.log(req.headers.cookie)
     const evt = await res.json()
     return {props: { evt }}
 }
